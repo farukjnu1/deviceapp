@@ -1,0 +1,174 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 7
+}
+
+@section ContentBody{
+    <h2>Device Test : Step 7</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form action="/Employee/DeviceSevenPost" method="post">
+                <div class="form-group">
+                    @Html.ValidationMessage("CredentialError")
+                </div>
+                <div class="form-group">
+                    <label for="RelayOutput" style="font-size:medium">Relay Output</label>&nbsp;
+                    <select class="form-control" data-val="true" id="RelayOutput" name="RelayOutput">
+                        <option value="">-please select-</option>
+                        <option>Best</option>
+                        <option>Better</option>
+                        <option>Good</option>
+                        <option>Bad</option>
+                        <option>Worse</option>
+                        <option>Worst</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Camera" style="font-size:medium">Camera</label>&nbsp;
+                    <select class="form-control" data-val="true" id="Camera" name="Camera">
+                        <option value="">-please select-</option>
+                        <option>T</option>
+                        <option>TC</option>
+                        <option>TCC</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="EbomTest" style="font-size:medium">E Bom Test</label>&nbsp;
+                    <select class="form-control" data-val="true" id="EbomTest" name="EbomTest">
+                        <option value="">-please select-</option>
+                        <option>Best</option>
+                        <option>Better</option>
+                        <option>Good</option>
+                        <option>Bad</option>
+                        <option>Worse</option>
+                        <option>Worst</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Note" style="font-size:medium">Note</label>&nbsp;
+                    <input type="text" id="Note" name="Note" class="form-control" maxlength="50" />
+                </div>
+                <button type="submit" name="btnSubmit" id="btnNext" class="btn btn-default" onclick="return CheckInputs();">
+                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;Next
+                </button>
+                <button type="button" id="btnReset" class="btn btn-warning" onclick="ResetInputs();">
+                    <i class="glyphicon glyphicon-refresh"></i>&nbsp;Reset
+                </button>
+                <br />
+                <div id="msg" style="color:red"></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped table-responsive table-bordered">
+                <tr>
+                    <th colspan="2">Tested Modules</th>
+                </tr>
+                <tr>
+                    <td>IMEI Number/GSM Serial</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(0)</td>
+                </tr>
+                <tr>
+                    <td>GPS Serial</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(1)</td>
+                </tr>
+                <tr>
+                    <td>GPS Signal</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(2)</td>
+                </tr>
+                <tr>
+                    <td>GSM Signal</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(3)</td>
+                </tr>
+                <tr>
+                    <td>SOS Test</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(4)</td>
+                </tr>
+                <tr>
+                    <td>Engine Status Check</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(5)</td>
+                </tr>
+                <tr>
+                    <td>AC Status Check</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(6)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 1</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(7)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 2</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(8)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 3</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(9)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 4</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(10)</td>
+                </tr>
+                <tr>
+                    <td>Main Voltage</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(11)</td>
+                </tr>
+                <tr>
+                    <td>Main Regulator Voltage</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(12)</td>
+                </tr>
+                <tr>
+                    <td>Test Without Battery</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(13)</td>
+                </tr>
+                <tr>
+                    <td>Test Only Battery</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(14)</td>
+                </tr>
+                <tr>
+                    <td>Main Current Voltage</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(15) mA</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function ResetInputs() {
+            document.getElementById('RelayOutput').selectedIndex = 0;
+            document.getElementById('Camera').selectedIndex = 0;
+            document.getElementById('EbomTest').selectedIndex = 0;
+            document.getElementById('Note').value = "";
+        }
+
+        function CheckInputs() {
+            var relayOutput = document.getElementById('RelayOutput').value;
+            var camera = document.getElementById('Camera').value;
+            var ebomTest = document.getElementById('EbomTest').value;
+            var note = document.getElementById('Note').value;
+            if (relayOutput == "") {
+                document.getElementById('msg').innerText = "Relay Output test is required";
+                return false;
+            }
+            else if (camera == "") {
+                document.getElementById('msg').innerText = "Camera status is required";
+                return false;
+            }
+            else if (ebomTest == "") {
+                document.getElementById('msg').innerText = "Ebom test is required";
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+}
+
+
+
+

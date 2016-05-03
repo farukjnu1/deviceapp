@@ -1,0 +1,125 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 5
+}
+
+@section ContentBody{
+    <h2>Device Test : Step 5</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form action="/Employee/DeviceFivePost" method="post">
+                <div class="form-group">
+                    @Html.ValidationMessage("CredentialError")
+                </div>
+                <div class="form-group">
+                    <label for="MainVoltage" style="font-size:medium">Main Voltage</label>&nbsp;
+                    <select class="form-control" data-val="true" data-val-required="The Name field is required." id="MainVoltage" name="MainVoltage">
+                        <option value="">-please select-</option>
+                        <option>12V</option>
+                        <option>24V</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="MainRegulatorVoltage" style="font-size:medium">Main Regulator Voltage</label>&nbsp;
+                    <input id="MainRegulatorVoltage" name="MainRegulatorVoltage" class="form-control" required />
+                </div>
+                <button type="submit" name="btnSubmit" id="btnNext" class="btn btn-default" onclick="return CheckInputs();">
+                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;Next
+                </button>
+                <button type="button" id="btnReset" class="btn btn-warning" onclick="ResetInputs();">
+                    <i class="glyphicon glyphicon-refresh"></i>&nbsp;Reset
+                </button>
+                <br />
+                <div id="msg" style="color:red"></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped table-responsive table-bordered">
+                <tr>
+                    <th colspan="2">Tested Modules</th>
+                </tr>
+                <tr>
+                    <td>IMEI Number/GSM Serial</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(0)</td>
+                </tr>
+                <tr>
+                    <td>GPS Serial</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(1)</td>
+                </tr>
+                <tr>
+                    <td>GPS Signal</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(2)</td>
+                </tr>
+                <tr>
+                    <td>GSM Signal</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(3)</td>
+                </tr>
+                <tr>
+                    <td>SOS Test</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(4)</td>
+                </tr>
+                <tr>
+                    <td>Engine Status Check</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(5)</td>
+                </tr>
+                <tr>
+                    <td>AC Status Check</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(6)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 1</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(7)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 2</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(8)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 3</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(9)</td>
+                </tr>
+                <tr>
+                    <td>GPS Voltage 4</td>
+                    <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(10)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function ResetInputs() {
+            document.getElementById('MainVoltage').selectedIndex = 0;
+            document.getElementById('MainRegulatorVoltage').value = "";
+        }
+
+        function CheckInputs() {
+            var mv = document.getElementById('MainVoltage').value;
+            var mrv = document.getElementById('MainRegulatorVoltage').value;
+            if (mv == "") {
+                document.getElementById('msg').innerText = "Select a voltage";
+                return false;
+            }
+            else if (isNaN(mrv)) {
+                document.getElementById('msg').innerText = "Input a valid number for Main Regulator Voltage";
+                return false;
+            }
+            else if (mrv < 4.9) {
+                document.getElementById('msg').innerText = "Main Regulator Voltage is more than 4.8";
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+}
+
+
+
+

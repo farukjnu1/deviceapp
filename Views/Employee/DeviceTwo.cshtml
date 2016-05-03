@@ -1,0 +1,91 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 2
+}
+
+@section ContentBody{
+    <h2>Device Test : Step 2</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form action="/Employee/DeviceTwoPost" method="post">
+                <div class="form-group">
+                    @Html.ValidationMessage("CredentialError")
+                </div>
+                <div class="form-group">
+                    <label for="GpsSignal" style="font-size: large">GPS Signal</label>&nbsp;
+                    <input type="number" id="GpsSignal" name="GpsSignal" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="GsmSignal" style="font-size:large">GSM Signal</label>&nbsp;
+                    <input type="number" id="GsmSignal" name="GsmSignal" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="Sos" style="font-size:large">SOS Test</label>&nbsp;
+                    <input type="checkbox" id="Sos" name="Sos" />
+                </div>
+                <button type="submit" name="btnSubmit" id="btnNext" class="btn btn-default" onclick="return CheckInputs();">
+                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;Next
+                </button>
+                <button type="button" id="btnReset" class="btn btn-warning" onclick="ResetInputs();">
+                    <i class="glyphicon glyphicon-refresh"></i>&nbsp;Reset
+                </button>
+                <br />
+                <div id="msg" style="color:red"></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Tested Modules</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IMEI Number/GSM Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(0)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(1)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function ResetInputs() {
+            document.getElementById('GpsSignal').value = "";
+            document.getElementById('GsmSignal').value = "";
+            document.getElementById('Sos').checked = false;
+        }
+
+        function CheckInputs() {
+            var gpsSignal = document.getElementById('GpsSignal').value;
+            var gsmSignal = document.getElementById('GsmSignal').value;
+            if (gpsSignal < 6) {
+                document.getElementById('msg').innerText = "GPS Signal should be more than 5";
+                return false;
+            }
+            else if (gsmSignal < 21) {
+                document.getElementById('msg').innerText = "GSM Signal should be more than 20";
+                return false;
+            }
+            else if (document.getElementById('Sos').checked == false) {
+                document.getElementById('msg').innerText = "SOS test is must.";
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+}
+

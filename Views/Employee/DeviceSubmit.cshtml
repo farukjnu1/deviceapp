@@ -1,0 +1,125 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 7
+}
+
+@section ContentBody{
+    <h2>Device Test : Submit</h2>
+    <hr />
+<form action="/Employee/DeviceSubmitPost" method="post">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            Device Test Report
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IMEI Number/GSM Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(0)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(1)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Signal</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(2)</td>
+                    </tr>
+                    <tr>
+                        <td>GSM Signal</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(3)</td>
+                    </tr>
+                    <tr>
+                        <td>SOS Test</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(4)</td>
+                    </tr>
+                    <tr>
+                        <td>Engine Status Check</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(5)</td>
+                    </tr>
+                    <tr>
+                        <td>AC Status Check</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(6)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Voltage 1</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(7)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Voltage 2</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(8)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Voltage 3</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(9)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Voltage 4</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(10)</td>
+                    </tr>
+                    <tr>
+                        <td>Main Voltage</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(11)</td>
+                    </tr>
+                    <tr>
+                        <td>Main Regulator Voltage</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(12)</td>
+                    </tr>
+                    <tr>
+                        <td>Test Without Battery</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(13)</td>
+                    </tr>
+                    <tr>
+                        <td>Test Only Battery</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(14)</td>
+                    </tr>
+                    <tr>
+                        <td>Main Current Voltage</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(15) mA</td>
+                    </tr>
+                    <tr>
+                        <td>Relay Output</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(16)</td>
+                    </tr>
+                    <tr>
+                        <td>Camera</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(17)</td>
+                    </tr>
+                    <tr>
+                        <td>E-bom Test</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(18)</td>
+                    </tr>
+                    <tr>
+                        <td>Note</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(19)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" id="btnSubmit" name="btnSubmit" value="btnSubmit" class="btn btn-default">
+                                <i class="glyphicon glyphicon-new-window"></i>&nbsp;Submit
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</form>
+}
+
+
+
+

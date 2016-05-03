@@ -1,0 +1,130 @@
+﻿@using DeviceExamine.ViewModel;
+@model ReadyDeviceDetailVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Ready Device
+}
+
+@section HeaderSection{
+}
+
+@section ContentBody{
+    <h2>Ready Device</h2>
+    <hr />
+    <form action="/Employee/DeviceDetailPost" method="post">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                Ready Device
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IMEI Number/GSM Serial</td>
+                            <td>@Model.Imei</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Serial</td>
+                            <td>@Model.GpsSerial</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Signal</td>
+                            <td>@Model.GpsSignal</td>
+                        </tr>
+                        <tr>
+                            <td>GSM Signal</td>
+                            <td>@Model.GsmSignal</td>
+                        </tr>
+                        <tr>
+                            <td>SOS Test</td>
+                            <td>@Model.Sos</td>
+                        </tr>
+                        <tr>
+                            <td>Engine Status Check</td>
+                            <td>@Model.EngineStatus</td>
+                        </tr>
+                        <tr>
+                            <td>AC Status Check</td>
+                            <td>@Model.AcStatus</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Voltage 1</td>
+                            <td>@Model.GpsVoltage1</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Voltage 2</td>
+                            <td>@Model.GpsVoltage2</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Voltage 3</td>
+                            <td>@Model.GpsVoltage3</td>
+                        </tr>
+                        <tr>
+                            <td>GPS Voltage 4</td>
+                            <td>@Model.GpsVoltage4</td>
+                        </tr>
+                        <tr>
+                            <td>Main Voltage</td>
+                            <td>@Model.MainVoltage</td>
+                        </tr>
+                        <tr>
+                            <td>Main Regulator Voltage</td>
+                            <td>@Model.MainRegulatorVoltage</td>
+                        </tr>
+                        <tr>
+                            <td>Test Without Battery</td>
+                            <td>@Model.TestWithoutBattery</td>
+                        </tr>
+                        <tr>
+                            <td>Test Only Battery</td>
+                            <td>@Model.TestOnlyBattery</td>
+                        </tr>
+                        <tr>
+                            <td>Main Current Voltage</td>
+                            <td>@Model.MainCurrentVoltage</td>
+                        </tr>
+                        <tr>
+                            <td>Relay Output</td>
+                            <td>@Model.RelayOutput</td>
+                        </tr>
+                        <tr>
+                            <td>Camera</td>
+                            <td>@Model.Camera</td>
+                        </tr>
+                        <tr>
+                            <td>E-bom Test</td>
+                            <td>@Model.EbomTest</td>
+                        </tr>
+                        <tr>
+                            <td>Note</td>
+                            <td>@Model.Comment</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="submit" id="btnSubmit" name="Imei" value="@Model.Imei+l" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-list"></i>&nbsp;Back to List
+                                </button>
+                            </td>
+                            <td>
+                                <button type="submit" id="btnSubmit" name="Imei" value="@Model.Imei+i" class="btn btn-default">
+                                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;Proceed to Install
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+}
+

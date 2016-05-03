@@ -1,0 +1,50 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 1
+}
+
+@section HeaderSection{
+    }
+
+@section ContentBody{
+<h2>Device Test : Step 1</h2>
+<hr />
+<form action="/Employee/DeviceOnePost" method="post">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.ValidationMessage("CredentialError")
+            </div>
+            <div class="form-group">
+                <label for="Imei" style="font-size: large">IMEI Num/GSM Serial</label>&nbsp;
+                <input type="text" id="Imei" name="Imei" class="form-control" maxlength="10" required />
+            </div>
+            <div class="form-group">
+                <label for="GpsSerial" style="font-size:large">GPS Serial</label>&nbsp;
+                <input type="text" id="GpsSerial" name="GpsSerial" class="form-control" maxlength="10" required />
+            </div>
+            <button type="submit" name="btnSubmit" id="btnNext" class="btn btn-default">
+                <i class="glyphicon glyphicon-new-window"></i>&nbsp;Next
+            </button>
+            <button type="button" id="btnReset" class="btn btn-warning" onclick="ResetInputs();">
+                <i class="glyphicon glyphicon-refresh"></i>&nbsp;Reset
+            </button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</form>
+    <script>
+        function ResetInputs() {
+            document.getElementById('Imei').value = "";
+            document.getElementById('GpsSerial').value = "";
+        }
+    </script>
+    }
+

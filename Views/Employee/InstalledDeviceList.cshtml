@@ -1,0 +1,110 @@
+﻿@using DeviceExamine.ViewModel
+@model InstallDeviceListVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Ready Devices
+}
+
+@section HeaderSection{
+    <style>
+        .btn-primary {
+            color: #337AB7;
+            background-color: white;
+            border-color: #337AB7;
+        }
+
+            .btn-primary:hover {
+                color: white;
+                background-color: #337AB7;
+                border-color: #337AB7;
+            }
+    </style>
+}
+
+@section ContentBody{
+    <form action="/Employee/InstallDeviceDetail">
+    <div>
+        <h2>Installed Device List</h2>
+        <table border="1" class="table table-striped table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>Details</th>
+                    <th>IMEI Number</th>
+                    <th>Camera</th>
+                    <th>Testing Date</th>
+                    <th>Test By</th>
+                    <th>Comment</th>
+                    <th>Terminal SIM</th>
+                    <th>Car Number</th>
+                    <th>Technician</th>
+                    <th>Installation Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (InstallDeviceVm item in Model.InstallDevices)
+                {
+                    <tr>
+                        <td>
+                            <button type="submit" name="Imei" value="@item.Imei" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                            </button>
+                        </td>
+                        <td>@item.Imei</td>
+                        <td>@item.Camera</td>
+                        <td>@item.TestOn</td>
+                        <td>@item.TestBy</td>
+                        <td>@item.Comment</td>
+                        <td>@item.TerminalSim</td>
+                        <td>@item.CarNo</td>
+                        <td>@item.Technician</td>
+                        <td>@item.InstallDate</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <!--pager-->
+                        @if (Model.Pager.EndPage > 1)
+                        {
+                            <ul class="pagination">
+                                @if (Model.Pager.CurrentPage > 1)
+                                {
+                                    <li>
+                                        <a href="/Employee/InstalledDeviceList">First</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Employee/InstalledDeviceList?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                                    </li>
+                                }
+
+                                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                                {
+                                    <li class="@(page == Model.Pager.CurrentPage? "active" : "")">
+                                        <a href="/Employee/InstalledDeviceList?page=@page">@page</a>
+                                    </li>
+                                }
+
+                                @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                                {
+                                    <li>
+                                        <a href="/Employee/InstalledDeviceList?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Employee/InstalledDeviceList?page=@(Model.Pager.TotalPages)">Last</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</form>
+
+}

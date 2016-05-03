@@ -1,0 +1,95 @@
+﻿@using DeviceExamine.ViewModel;
+@model BaseVm
+
+@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+
+@section TitleSection{
+    Step 3
+}
+
+@section ContentBody{
+    <h2>Device Test : Step 3</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form action="/Employee/DeviceThreePost" method="post">
+                <div class="form-group">
+                    @Html.ValidationMessage("CredentialError")
+                </div>
+                <div class="form-group">
+                    <label for="EngineStatus" style="font-size:large">Engine Status</label>&nbsp;
+                    <input type="checkbox" id="EngineStatus" name="EngineStatus" />
+                </div>
+                <div class="form-group">
+                    <label for="AcStatus" style="font-size:large">AC Status</label>&nbsp;
+                    <input type="checkbox" id="AcStatus" name="AcStatus" />
+                </div>
+                <button type="submit" name="btnSubmit" id="btnNext" class="btn btn-default" onclick="return CheckInputs();">
+                    <i class="glyphicon glyphicon-new-window"></i>&nbsp;Next
+                </button>
+                <button type="button" id="btnReset" class="btn btn-warning" onclick="ResetInputs();">
+                    <i class="glyphicon glyphicon-refresh"></i>&nbsp;Reset
+                </button>
+                <br />
+                <div id="msg" style="color:red"></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Tested Modules</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>IMEI Number/GSM Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(0)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Serial</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(1)</td>
+                    </tr>
+                    <tr>
+                        <td>GPS Signal</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(2)</td>
+                    </tr>
+                    <tr>
+                        <td>GSM Signal</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(3)</td>
+                    </tr>
+                    <tr>
+                        <td>SOS Test</td>
+                        <td>@HttpContext.Current.Session["device"].ToString().Split(',').GetValue(4)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function ResetInputs() {
+            document.getElementById('EngineStatus').checked = false;
+            document.getElementById('AcStatus').checked = false;
+        }
+
+        function CheckInputs() {
+            if (document.getElementById('EngineStatus').checked == false) {
+                document.getElementById('msg').innerText = "Engine Status test is must.";
+                return false;
+            }
+            else if (document.getElementById('AcStatus').checked == false) {
+                document.getElementById('msg').innerText = "AC Status test is must.";
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+}
+
+
+
+
